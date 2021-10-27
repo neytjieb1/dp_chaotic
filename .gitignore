@@ -16,5 +16,6 @@ Figs/
 !Data/
 Data/*
 !Data/*.txt
+!Data/dp_training_reworked/
 
 #git push origin -u pca_dev
