@@ -6,20 +6,20 @@ G.CTR = input("Ctr value: \n")
 
 #Run Simulation
 dp = "dp9"
-# import Libs.predictor as predictor
-# predictor.preds(dp)
+import Libs.predictor as predictor
+predictor.preds(dp)
 import Libs.plotter as plotter
 plotter.plots(dp)
 
 #Save Data
 print("Saving variable data to text file")
 
-# f = open("Libs/GLOBAL.py","r")
-# lines = f.readlines()
-# lines.append("FILE = {d}".format(d=dp))
-# lines.append(input("Enter extra info:\n"))
+f = open("Libs/GLOBAL.py","r")
+lines = f.readlines()
+lines.append("FILE = {d}".format(d=dp))
+lines.append(input("Enter extra info:\n"))
 
-# from numpy import savetxt
-# savetxt("TextFiles/mostRecentVariables{i}.txt".format(i=G.CTR), lines, fmt='%s')
+from numpy import savetxt
+savetxt("TextFiles/mostRecentVariables{i}.txt".format(i=G.CTR), lines, fmt='%s')
 
 

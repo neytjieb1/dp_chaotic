@@ -84,8 +84,14 @@ def preds(dp):
         X_train[:,i*dim:(i+1)*dim]=X[discard-delay+i+1:discard-delay+i+1+train_len]
 
 
-    if G.doPCA:
-        print("DOING PCA")
+    if G.PCA:
+        print("\n\nDOING PCA. Dim of X-train = {d}".format(d=X_train.shape[1]))
+        G.NUMPCAs=  int(input("Choose number of PCA-components: "))  #X_train.shape[1]//2              #dimensions*delay / 2
+    #     temp = X_train[discard: discard+ train_len]
+        import  scipy.linalg as LA
+        U,Sig, Wt=LA.svd(X_train, full_matrices=True)
+        T_X= U[:,: G.DELAY*dim]*Sig
+        X_train = T_X[:,0:G.NUMPCAs]
 
     ### Training Gamma.
     from Libs.Train_Gamma import Train_NN_PCA
@@ -94,9 +100,9 @@ def preds(dp):
 
     # Setting up variables
     u_predicted=np.zeros((prediction_len,u_data.shape[1]))
-    u=u_data[train_len+discard]
+    u_k=u_data[train_len+discard]
     x_0=X[train_len+discard]
-    u_predicted[0]=u
+    u_predicted[0]=u_k
     X_stack=np.zeros(delay*dim)
 
     for i in range(delay):
@@ -107,7 +113,7 @@ def preds(dp):
     # Running Prediction
     for t in range(prediction_len-1):
         print("Predicted {} out of {} \r".format(t,prediction_len),end='')
-        x_1=net.g(u,x_0)
+        x_1=net.g(u_k,x_0)
         # X[S+t+1]=x_1
 
         for i in range(delay-1):
@@ -115,8 +121,8 @@ def preds(dp):
 
         X_stack[(delay-1)*dim:delay*dim]=x_1
         
-        u=trainer.predict(X_stack)
-        u_predicted[t+1]=u
+        u_k=trainer.predict(X_stack); print(u_k)
+        u_predicted[t+1]=u_k
         x_0=x_1
         
     #############################################

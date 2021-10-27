@@ -61,7 +61,7 @@ class Network:
 
 
 
-    def g(self,u,x):
+    def g(self,u,x):                #u=u_k    x=x_0
         # Pad u with zeros
         u_=np.zeros(self._dim) 
         u_[0:len(u)]=u

@@ -7,7 +7,10 @@ import numpy as np
 import tensorflow as tf  ## USING v 2.0
 from tensorflow import keras
 import matplotlib.pyplot as plt
-
+import pandas as pd
+        # pd.DataFrame(self.history.history).plot(figsize=(8,5))
+        # plt.show()
+import Libs.GLOBAL as G
 
 
 class Train_NN_PCA:
@@ -25,8 +28,8 @@ class Train_NN_PCA:
         T=U[:,:dim_x//2]*Sig
         self.W=Wt.T  #Principal component matrix
 
-        from Libs.GLOBAL import doPCA
-        if doPCA:
+
+        if G.PCA:
             l =min(X_train.shape[0], Y_train.shape[0])
             T_train=np.zeros((l,dim_x))
             T_train[:,0:(dim_x//2)]=T
@@ -73,11 +76,11 @@ class Train_NN_PCA:
                                                     
             self.history = self.model.fit(T_train,Y_train, batch_size=BATCH_SIZE,epochs=EPOCHS, 
                     verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
-            self.plotModelTraining()
+            # self.plotModelTraining()
         
-        import pandas as pd
-        pd.DataFrame(self.history.history).plot(figsize=(8,5))
-        plt.show()
+        # import pandas as pd
+        # pd.DataFrame(self.history.history).plot(figsize=(8,5))
+        # plt.show()
 
         
     def plotModelTraining(self):
@@ -95,12 +98,16 @@ class Train_NN_PCA:
     def predict(self,x):
         dim_x=self.dim_x
         
-        x_=np.zeros((1,dim_x))      #dim_x = delay*dim
+        if G.PCA:
+            x_ = np.zeros((1, dim_x*2))
+        else:
+            x_=np.zeros((1,dim_x))      #dim_x = delay*dim
 
         x_[0]=x
         t_=np.zeros((1,dim_x))
         t_[0,0:(dim_x//2)]=x_[0,0:(dim_x//2)]@self.W
-        t_[0,(dim_x//2):dim_x]=x_[0,(dim_x//2):dim_x]@self.W
+        t_[0,(dim_x//2):dim_x]=x_[0,(dim_x//2):dim_x]@self.W; 
+        np.savetxt('t_.txt', t_)
 
         return self.model.predict(t_)[0]
 

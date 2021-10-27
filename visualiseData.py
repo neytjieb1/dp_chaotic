@@ -129,36 +129,5 @@ print('raw_max:',np.round(raw_max,5) )
 print("raw_absmax:", np.round(raw_absmax, 5))
 print('pulled_std:',np.round( raw_std,5))
 
-import matplotlib.pyplot as plt
-from matplotlib import gridspec
-# actual = dp9_a[:,0] ; predict = dp9_p[:,0]
-# plt.hist(actual, color='black', alpha=0.7)
-# plt.hist(predict, color = 'green', alpha = 0.7)
-# plt.show()
 
 
-colour = ['cornflowerblue','forestgreen','indianred','orange' ]
-plt.rcParams['figure.figsize'] = [15, 4]
-spec = gridspec.GridSpec( nrows=4,ncols=1, hspace=0.2,height_ratios=[0.25,0.25, 0.25, 0.25])
-_rows = 4
-_cols = 1
-fig=plt.figure()
-axes = []
-for i in range(_cols):
-    for j in range(_rows):
-        axes.append(fig.add_subplot(spec[j,i]))
-
-labels = ["x_pt1", "y_pt1", "x_pt2", "y_pt2"]
-for j in range(_rows*_cols):
-    a = dp9_a[:,j]
-    p = dp9_p[:,j]
-    axes[j].hist(a, color='blue', alpha=0.75)
-    axes[j].hist(p, color='orangered', alpha = 0.75)
-    axes[j].set_ylabel(labels[j], rotation = 0, fontsize = 7)
-    axes[j].set_xlabel("")
-    if (j!=(_rows*_cols-1)):
-        axes[j].xaxis.set_ticklabels([])
-    axes[j].yaxis.set_ticklabels([])
-
-axes[0].set_title('Predicted(Red) vs Actual(Blue)',fontsize=6)
-plt.show()
