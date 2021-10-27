@@ -5,7 +5,7 @@ G.doPCA = False #input('Do PCA-component analysis?\n')== ('y' or 'Y')
 G.CTR = input("Ctr value: \n") 
 
 #Run Simulation
-dp = "dp9"
+dp = "dp6"
 import Libs.predictor as predictor
 predictor.preds(dp)
 import Libs.plotter as plotter

@@ -121,7 +121,8 @@ def preds(dp):
 
         X_stack[(delay-1)*dim:delay*dim]=x_1
         
-        u_k=trainer.predict(X_stack); print(u_k)
+        u_k=trainer.predict(X_stack); 
+        #print(u_k)
         u_predicted[t+1]=u_k
         x_0=x_1
         

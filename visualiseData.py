@@ -10,7 +10,7 @@ ctr = 0
 dbl_pend=np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/dp{c}.txt'.format(c=ctr))
 dbl_pend = dbl_pend[:,2:]
 
-def fig2D():
+def fig2D(ctr):
     ### SETUP 
     plt.rcParams['figure.figsize'] = [15, 4]
     spec = gridspec.GridSpec( nrows=4,ncols=1, hspace=0.2,height_ratios=[0.75,0.75, 0.75, 0.75])
@@ -27,17 +27,16 @@ def fig2D():
     plot_len1 = dbl_pend.shape[0]
     for j in range(cols+rows-1):
         axes[j].plot(range(S,S+plot_len1),dbl_pend[S:S+plot_len1,j],lw=0.75,color=colours[3], label = j) 
-        # axes[2*i+1].set_title('Actual',fontsize=3)
         axes[j].set_ylabel("",fontsize=2)
-        axes[j].set_xlabel("", fontsize=2)
-        if (j != cols+rows-1):
+        if (j != cols+rows-2):
             axes[j].xaxis.set_ticklabels([])
+            axes[j].set_xlabel("", fontsize=2)
         axes[j].yaxis.set_ticklabels([])
 
     axes[0].set_title('dp{i}'.format(i=ctr),fontsize=6)
     fig.suptitle('Visualise Data')
-
-    plt.show()
+    plt.savefig('Figs/Original/{c}_shape_{s}.png'.format(c=ctr, s=dbl_pend.shape[0]),dpi=600)
+    # plt.show()
 
 def fig3D():
     cols = [1,3]
@@ -109,25 +108,25 @@ def createShapesTextFile():
         shapes.append(tuple)
     np.savetxt('shapes.txt', shapes , fmt='%i', delimiter = '\t')
 
-# for ctr in [1, 2, 6, 7, 9]:
-#     dbl_pend=np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/dp{c}.txt'.format(c=ctr))
-#     dbl_pend = dbl_pend[:,2:]
-#     fig2D()
-#     hist()
-#     fig3D()
+for ctr in range(40):
+    dbl_pend=np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/dp{c}.txt'.format(c=ctr))
+    dbl_pend = dbl_pend[:,2:]
+    fig2D(ctr)
+    # hist()
+    # fig3D()
     
 
-dp9_a = np.loadtxt('Data/actual_dp9_2.txt')
-dp9_p = np.loadtxt('Data/predicted_dp9_2.txt')
-raw_mean =  np.mean(dp9_a,axis=0)
-raw_std = np.std(dp9_a, axis=0)
-raw_absmax = np.max(np.abs(dp9_a), axis=0)
-raw_max = np.max(dp9_a, axis=0)
+# dp9_a = np.loadtxt('Data/actual_dp9_2.txt')
+# dp9_p = np.loadtxt('Data/predicted_dp9_2.txt')
+# raw_mean =  np.mean(dp9_a,axis=0)
+# raw_std = np.std(dp9_a, axis=0)
+# raw_absmax = np.max(np.abs(dp9_a), axis=0)
+# raw_max = np.max(dp9_a, axis=0)
 
-print('raw_mean:', np.round(raw_mean,5))
-print('raw_max:',np.round(raw_max,5) )
-print("raw_absmax:", np.round(raw_absmax, 5))
-print('pulled_std:',np.round( raw_std,5))
+# print('raw_mean:', np.round(raw_mean,5))
+# print('raw_max:',np.round(raw_max,5) )
+# print("raw_absmax:", np.round(raw_absmax, 5))
+# print('pulled_std:',np.round( raw_std,5))
 
 
 

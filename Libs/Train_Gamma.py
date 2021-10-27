@@ -22,22 +22,24 @@ class Train_NN_PCA:
 
         # Principal components
 
-        X_pca=X_train[:,0:dim_x//2]
+        # X_pca=X_train[:,0:dim_x//2]
 
-        U,Sig,Wt=np.linalg.svd(X_pca,full_matrices=True)
-        T=U[:,:dim_x//2]*Sig
-        self.W=Wt.T  #Principal component matrix
+        # U,Sig,Wt=np.linalg.svd(X_pca,full_matrices=True)
+        # T=U[:,:dim_x//2]*Sig
+        # self.W=Wt.T  #Principal component matrix
 
 
-        if G.PCA:
-            l =min(X_train.shape[0], Y_train.shape[0])
-            T_train=np.zeros((l,dim_x))
-            T_train[:,0:(dim_x//2)]=T
-            T_train[:,(dim_x//2):dim_x]=X_train[:,(dim_x//2):dim_x]@self.W
-        else:
-            T_train=np.zeros((l,dim_x))
-            T_train[:,0:(dim_x//2)]=T
-            T_train[:,(dim_x//2):dim_x]=X_train[:,(dim_x//2):dim_x]@self.W
+        # if G.PCA:
+        #     l =min(X_train.shape[0], Y_train.shape[0])
+        #     T_train=np.zeros((l,dim_x))
+        #     T_train[:,0:(dim_x//2)]=T
+        #     T_train[:,(dim_x//2):dim_x]=X_train[:,(dim_x//2):dim_x]@self.W
+        # else:
+        #     T_train=np.zeros((l,dim_x))
+        #     T_train[:,0:(dim_x//2)]=T
+        #     T_train[:,(dim_x//2):dim_x]=X_train[:,(dim_x//2):dim_x]@self.W
+
+        T_train = X_train
 
         EPOCHS=epochs
         BATCH_SIZE=batch_size
@@ -104,12 +106,13 @@ class Train_NN_PCA:
             x_=np.zeros((1,dim_x))      #dim_x = delay*dim
 
         x_[0]=x
-        t_=np.zeros((1,dim_x))
-        t_[0,0:(dim_x//2)]=x_[0,0:(dim_x//2)]@self.W
-        t_[0,(dim_x//2):dim_x]=x_[0,(dim_x//2):dim_x]@self.W; 
-        np.savetxt('t_.txt', t_)
+        # t_=np.zeros((1,dim_x))
+        # t_[0,0:(dim_x//2)]=x_[0,0:(dim_x//2)]@self.W
+        # t_[0,(dim_x//2):dim_x]=x_[0,(dim_x//2):dim_x]@self.W; 
+        # np.savetxt('t_.txt', t_)
 
-        return self.model.predict(t_)[0]
+        # return self.model.predict(t_)[0]
+        return self.model.predict(x_)[0]
 
 
 
