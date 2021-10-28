@@ -81,8 +81,8 @@ def figA(u_data, u_predicted, savingdata):
      plt.show()
 
 def figB(u_data, u_predicted, savingdata): 
-     plt.rcParams['figure.figsize'] = [15, 4]
-     spec = gridspec.GridSpec( nrows=4,ncols=1, hspace=0.2,height_ratios=[0.25,0.25, 0.25, 0.25])
+     # plt.rcParams['figure.figsize'] = [15, 4]
+     spec = gridspec.GridSpec( nrows=4,ncols=1, hspace=1,height_ratios=[0.25,0.25, 0.25, 0.25])
      _rows = 4
      _cols = 1
      fig=plt.figure()
@@ -99,9 +99,9 @@ def figB(u_data, u_predicted, savingdata):
           axes[j].hist(p, color='orangered', alpha = 0.75, label='predicted')
           
           axes[j].set_ylabel(labels[j], rotation = 0, fontsize = 7)
-          axes[j].set_xlabel("")
+          # axes[j].set_xlabel("")
           if (j!=(_rows*_cols-1)):
-               axes[j].xaxis.set_ticklabels([])
+               # axes[j].xaxis.set_ticklabels([])
                axes[0].legend(loc='upper left', prop={'size': 4})
           axes[j].yaxis.set_ticklabels([])
 

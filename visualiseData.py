@@ -3,17 +3,29 @@ import matplotlib.pyplot as plt
 from matplotlib import gridspec
 import seaborn as sns; sns.set()
 
+# dbl_pend=np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/dp{c}.txt'.format(c=ctr))
+# dbl_pend = dbl_pend[:,2:]
+
 colours = ['orange', 'cornflowerblue','forestgreen','indianred', 'grey' ]
-ctr = 0
+
+def somestats(dbl_pend, title=''):
+    raw_mean =  np.mean(dbl_pend,axis=0)
+    raw_std = np.std(dbl_pend, axis=0)
+    raw_absmax = np.max(np.abs(dbl_pend), axis=0)
+    raw_max = np.max(dbl_pend, axis=0)
+
+    if title != '':
+        print('==============',str.upper(title),'====================')
+    print('raw_mean:', np.round(raw_mean,5))
+    print('raw_max:',np.round(raw_max,5) )
+    print("raw_absmax:", np.round(raw_absmax, 5))
+    print('pulled_std:',np.round( raw_std,5))
 
 
-dbl_pend=np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/dp{c}.txt'.format(c=ctr))
-dbl_pend = dbl_pend[:,2:]
-
-def fig2D(ctr):
+def fig2D(dbl_pend, ctr, r=[]):
     ### SETUP 
     plt.rcParams['figure.figsize'] = [15, 4]
-    spec = gridspec.GridSpec( nrows=4,ncols=1, hspace=0.2,height_ratios=[0.75,0.75, 0.75, 0.75])
+    spec = gridspec.GridSpec( nrows=4,ncols=1, hspace=1,height_ratios=[0.75,0.75, 0.75, 0.75])
 
     rows = 4
     cols = 1
@@ -23,22 +35,27 @@ def fig2D(ctr):
         for j in range(rows):
             axes.append(fig.add_subplot(spec[j,i]))
 
-    S=0
-    plot_len1 = dbl_pend.shape[0]
+    if r==[]:
+        S=0
+        plot_len1 = dbl_pend.shape[0]
+    else:
+        S= r[0]
+        plot_len1 = r[1]
     for j in range(cols+rows-1):
-        axes[j].plot(range(S,S+plot_len1),dbl_pend[S:S+plot_len1,j],lw=0.75,color=colours[3], label = j) 
-        axes[j].set_ylabel("",fontsize=2)
+        axes[0].plot(range(S,S+plot_len1),dbl_pend[S:S+plot_len1,j],lw=0.75,color=colours[j], label = j) 
+        # axes[j].set_ylabel("",fontsize=2)
         if (j != cols+rows-2):
-            axes[j].xaxis.set_ticklabels([])
-            axes[j].set_xlabel("", fontsize=2)
-        axes[j].yaxis.set_ticklabels([])
+            # axes[j].xaxis.set_ticklabels([])
+            axes[j].xaxis.get_label().set_fontsize(2)
+            # axes[j].set_xlabel("", fontsize=2)
+        # axes[j].yaxis.set_ticklabels([])
 
     axes[0].set_title('dp{i}'.format(i=ctr),fontsize=6)
     fig.suptitle('Visualise Data')
-    plt.savefig('Figs/Original/{c}_shape_{s}.png'.format(c=ctr, s=dbl_pend.shape[0]),dpi=600)
-    # plt.show()
+    # plt.savefig('Figs/Original/{c}_shape_{s}.png'.format(c=ctr, s=dbl_pend.shape[0]),dpi=600)
+    plt.show()
 
-def fig3D():
+def fig3D(dbl_pend, ctr):
     cols = [1,3]
     coords = ['y','y']
     for column in cols:    
@@ -72,10 +89,10 @@ def fig3D():
         fig.suptitle('dp{i}{j}'.format(i=ctr,j=coords[0]),fontsize=6)
         plt.show()
 
-def hist():
+def hist(dbl_pend, ctr, title, new_dbl_pend=''):
     ### SETUP 
-    plt.rcParams['figure.figsize'] = [15, 4]
-    spec = gridspec.GridSpec( nrows=4,ncols=1, hspace=0.2,height_ratios=[0.75,0.75, 0.75, 0.75])
+    # plt.rcParams['figure.figsize'] = [15, 4]
+    spec = gridspec.GridSpec( nrows=4,ncols=1, hspace=1,height_ratios=[1,1, 1, 1])
 
     rows = 4
     cols = 1
@@ -89,13 +106,18 @@ def hist():
     plot_len1 = dbl_pend.shape[0]
     for j in range(cols+rows-1):
         axes[j].hist(dbl_pend[S:S+plot_len1,j],color=colours[j], alpha=0.5, label = j) 
-        axes[j].set_ylabel("",fontsize=2)
-        axes[j].set_xlabel("", fontsize=2)
-        if (j != cols+rows-1):
-            axes[j].xaxis.set_ticklabels([])
-        axes[j].yaxis.set_ticklabels([])
+        if new_dbl_pend!='':
+            plot_len1 = new_dbl_pend.shape[0]
+            axes[j].hist(new_dbl_pend[S:S+plot_len1,j],color='grey', alpha=0.5, label = j) 
+        # axes[j].set_ylabel("",fontsize=2)
+        if (j != cols+rows-2):
+            # axes[j].xaxis.set_ticklabels(fontsize=3)
+            axes[j].xaxis.get_label().set_fontsize(2)
+            # axes[j].set_xlabel("", fontsize=2)
+        # axes[j].yaxis.set_ticklabels([])
 
-    axes[0].set_title('dp{i}'.format(i=ctr),fontsize=6)
+
+    axes[0].set_title('{t}_dp{i}'.format(t=title, i=ctr),fontsize=6)
     fig.suptitle('Visualise Data')
 
     plt.show()
@@ -108,25 +130,29 @@ def createShapesTextFile():
         shapes.append(tuple)
     np.savetxt('shapes.txt', shapes , fmt='%i', delimiter = '\t')
 
-for ctr in range(40):
-    dbl_pend=np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/dp{c}.txt'.format(c=ctr))
-    dbl_pend = dbl_pend[:,2:]
-    fig2D(ctr)
-    # hist()
-    # fig3D()
+# for ctr in range(40):
+#     dbl_pend=np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/dp{c}.txt'.format(c=ctr))
+#     dbl_pend = dbl_pend[:,2:]
+#     fig2D(ctr)
+#     # hist()
+#     # fig3D()
     
 
-# dp9_a = np.loadtxt('Data/actual_dp9_2.txt')
-# dp9_p = np.loadtxt('Data/predicted_dp9_2.txt')
-# raw_mean =  np.mean(dp9_a,axis=0)
-# raw_std = np.std(dp9_a, axis=0)
-# raw_absmax = np.max(np.abs(dp9_a), axis=0)
-# raw_max = np.max(dp9_a, axis=0)
+dp_a = np.loadtxt('Data/actual_dp6_8.txt')[0:1000,:]
+dp_p = np.loadtxt('Data/predicted_dp6_8.txt')
+dp_check= np.loadtxt('quickcheck.txt')
+print(dp_a.shape, dp_p.shape, dp_check.shape, sep='\n')
+somestats(dp_a, 'actual')
+somestats(dp_p, 'pred')
+somestats(dp_check, 'check')
 
-# print('raw_mean:', np.round(raw_mean,5))
-# print('raw_max:',np.round(raw_max,5) )
-# print("raw_absmax:", np.round(raw_absmax, 5))
-# print('pulled_std:',np.round( raw_std,5))
+# hist(dp_a, 6, 'actual', dp_p)
 
+import Libs.GLOBAL as G
+ctr=6
+dbl_pend=np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/dp{c}.txt'.format(c=ctr))
+dbl_pend = dbl_pend[:,2:]
+
+fig2D(dbl_pend, ctr, [G.TL+G.DC, G.PL])
 
 

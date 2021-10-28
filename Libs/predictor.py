@@ -29,13 +29,14 @@ def normalise_data(dp):
     recreate[0] = G.raw_mean
     recreate[1] = G.raw_max
     recreate[2] = G.raw_std
-    np.savetxt('Data/recreate.txt', recreate)
+    
 
     data = data*(0.5/G.raw_max)
+    np.savetxt('Data/recreate.txt', recreate)
 
     if G.verbosity:
         print('\nmax: ', np.max(data, axis=0), '\nmean: ', np.round(np.mean(data, axis=0),4), '\nstd: ', np.std(data, axis=0))
-    
+    np.savetxt('quickcheck.txt', data)
     return data
 
 
@@ -135,7 +136,7 @@ def preds(dp):
         print("Saving Generated data to files")
 
     np.savetxt('Data/predicted_{d}_{c}.txt'.format(d=dp, c=G.CTR),u_predicted)
-    np.savetxt('Data/actual_{d}_{c}.txt'.format(d=dp, c=G.CTR),u_data[S:])
+    np.savetxt('Data/actual_{d}_{c}.txt'.format(d=dp, c=G.CTR),u_data[S:S+prediction_len])
 
     if G.verbosity:
         print('Reached end of predictor.py\n')

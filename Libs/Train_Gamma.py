@@ -50,7 +50,7 @@ class Train_NN_PCA:
         tf.keras.backend.clear_session()
         self.model =tf.keras.Sequential()
         self.model.add(keras.layers.Dense(layer_dimension, input_shape=(dim_x,), name='input_layer', activation='relu'))
-        for i in range(hidden_layers):
+        for i in range(hidden_layers//2):
             self.model.add(keras.layers.Dense(layer_dimension, name='hidden_layer_'+str(i), activation='relu'))
 
         for j in range(hidden_layers//2):
@@ -64,7 +64,7 @@ class Train_NN_PCA:
 
         # Training with different learning rates for the Adam Optimizer
         
-        rates = [0.001, 0.0001, 0.00001] #, 0.00001]
+        rates = [0.01, 0.001, 0.0001, 0.00001] #, 0.00001]
         self.history = 0
         for lr in rates:
             opt=keras.optimizers.Adam(learning_rate=lr)
