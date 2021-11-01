@@ -31,7 +31,7 @@ def figF(axes, figure, u_actual, u_predicted, savingdata, rows, cols=1):
      figure.suptitle(title)
 
      if savingdata:
-          plt.savefig('Figs/Fig-2F{c}.png'.format(c=G.CTR),dpi=600)
+          plt.savefig('Figs/molecular_dynamics/Fig-2F{c}.png'.format(c=G.CTR),dpi=600)
      plt.show()
 
 def figC(ax1, ax0, figure, specs, u_actual, u_predicted, savingdata):
@@ -46,7 +46,7 @@ def figC(ax1, ax0, figure, specs, u_actual, u_predicted, savingdata):
      figure.suptitle(title)
 
      # if savingdata:
-     #      plt.savefig('Figs/Fig-2C{c}.png'.format(c=G.CTR),dpi=600)
+     #      plt.savefig('Figs/molecular_dynamics/Fig-2C{c}.png'.format(c=G.CTR),dpi=600)
      plt.show()
 
 def figA(u_data, u_predicted, savingdata):
@@ -77,7 +77,7 @@ def figA(u_data, u_predicted, savingdata):
      fig.suptitle(title)
 
      if savingdata:
-          plt.savefig('Figs/Fig-2A{c}.png'.format(c=G.CTR),dpi=600)
+          plt.savefig('Figs/molecular_dynamics/Fig-2A{c}.png'.format(c=G.CTR),dpi=600)
      plt.show()
 
 def figB(u_data, u_predicted, savingdata): 
@@ -110,7 +110,7 @@ def figB(u_data, u_predicted, savingdata):
      
 
      if savingdata:
-          plt.savefig('Figs/Fig-2B{c}.png'.format(c=G.CTR),dpi=600)
+          plt.savefig('Figs/molecular_dynamics/Fig-2B{c}.png'.format(c=G.CTR),dpi=600)
      plt.show()
 
 def figD(u_data, u_predicted, savingdata, d = 1):
@@ -141,7 +141,7 @@ def figD(u_data, u_predicted, savingdata, d = 1):
 
      fig.suptitle(title)
      if savingdata:
-          plt.savefig('Figs/Fig-2D.png',dpi=600)
+          plt.savefig('Figs/molecular_dynamics/Fig-2D.png',dpi=600)
      plt.show()
 
 def fig1B_3D(u_data, u_predicted, savingdata):
@@ -170,7 +170,7 @@ def fig1B_3D(u_data, u_predicted, savingdata):
 
      fig.suptitle(title)
      # if savingdata:
-     #      plt.savefig('Figs/Fig-1B_3D{c}.png'.format(c=G.CTR),dpi=600)
+     #      plt.savefig('Figs/molecular_dynamics/Fig-1B_3D{c}.png'.format(c=G.CTR),dpi=600)
      plt.show()
 
 def figX(u_data, u_predicted, savingdata):
@@ -188,6 +188,6 @@ def figX(u_data, u_predicted, savingdata):
                scatterpoints=1, fontsize=13)
 
      if savingdata:
-          plt.savefig('Figs/Fig-X{c}.png'.format(c=G.CTR),dpi=600)
+          plt.savefig('Figs/molecular_dynamics/Fig-X{c}.png'.format(c=G.CTR),dpi=600)
      plt.show()
 

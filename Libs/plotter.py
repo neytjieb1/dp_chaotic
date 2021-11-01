@@ -12,10 +12,9 @@ import Libs.GLOBAL as G
 # Plotting - setup
 #############################################
 
-def plots(dp):
-    u_predicted=np.loadtxt('Data/predicted_{d}_{c}.txt'.format(d=dp, c=G.CTR))
-    u_data=np.loadtxt('Data/actual_{d}_{c}.txt'.format(d=dp, c=G.CTR))
-
+def plots():
+    u_predicted=np.loadtxt('Data/molecular_dynamics/predicted_{c}.txt'.format(c=G.CTR))
+    u_data=np.loadtxt('Data/molecular_dynamics/actual_{c}.txt'.format(c=G.CTR))
 
     # u_predicted = np.reshape(u_predicted, (u_predicted.shape[0], 1))    #if 1D
     # u_data = np.reshape(u_data, (u_data.shape[0], 1))

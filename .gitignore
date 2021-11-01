@@ -15,10 +15,12 @@ Figs/
 
 !Data/
 Data/*
-!Data/dp_training_reworked/
+!Data/molecular_dynamics/
+!Data/coords320.txt
+!Data/cor_vel_for_b1b88.txt
+!Data/fullcoords.txt
+!Data/fullforce.txt
+!Data/fullvel.txt
 
-!Data/distances_b1b45b88.txt
-!Data/distances_b1b88.txt
-Data/coords320.txt
 
 #git push origin -u pca_dev

@@ -138,21 +138,14 @@ def createShapesTextFile():
 #     # fig3D()
     
 
-dp_a = np.loadtxt('Data/actual_dp6_8.txt')[0:1000,:]
-dp_p = np.loadtxt('Data/predicted_dp6_8.txt')
-dp_check= np.loadtxt('quickcheck.txt')
-print(dp_a.shape, dp_p.shape, dp_check.shape, sep='\n')
-somestats(dp_a, 'actual')
+# dp_a = np.loadtxt('Data/actual_dp6_8.txt')[0:1000,:]
+dp_p = np.loadtxt('Data/distances_b1b45b88.txt')
+dp_check= np.loadtxt('Data/distances_b1b88.txt')
+print(dp_p.shape, dp_check.shape, sep='\n')
+# somestats(dp_a, 'actual')
 somestats(dp_p, 'pred')
 somestats(dp_check, 'check')
 
 # hist(dp_a, 6, 'actual', dp_p)
-
-import Libs.GLOBAL as G
-ctr=6
-dbl_pend=np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/dp{c}.txt'.format(c=ctr))
-dbl_pend = dbl_pend[:,2:]
-
-fig2D(dbl_pend, ctr, [G.TL+G.DC, G.PL])
 
 

@@ -5,13 +5,17 @@ import Libs.GLOBAL as G
 
 
 
-def normalise_data(dp):
+def normalise_data(fname):
 
     if G.verbosity:
         print('Normalising Data...\n')  
-    raw_data = np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/{d}.txt'.format(d=dp))
-    raw_data = raw_data[:,2:]   #get rid of origin
-    raw_data = np.delete(raw_data, [0,2], axis=1)
+    raw_data = np.loadtxt(fname)
+
+    #CASE OF DP_CHAOTIC
+    # raw_data = np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/{d}.txt'.format(d=dp))
+    # raw_data = raw_data[:,2:]   #get rid of origin
+    # raw_data = np.delete(raw_data, [0,2], axis=1)
+    #END CASE OF DP_CHAOTIC
 
     # raw_data = np.reshape(raw_data, (19000,1))  #if only distances
     
@@ -33,11 +37,11 @@ def normalise_data(dp):
     
 
     data = data*(0.5/G.raw_max)
-    np.savetxt('Data/recreate.txt', recreate)
+    np.savetxt('Data/molecular_dynamics/recreate_{c}.txt'.format(c=G.CTR), recreate)
 
     if G.verbosity:
         print('\nmax: ', np.max(data, axis=0), '\nmean: ', np.round(np.mean(data, axis=0),4), '\nstd: ', np.std(data, axis=0))
-    np.savetxt('quickcheck.txt', data)
+    # np.savetxt('quickcheck.txt', data)
     return data
 
 def createDelCoordData():
@@ -59,10 +63,10 @@ def createDelCoordData():
     
     return u
 
-def preds(dp):
+def preds(fname):
         
     ##### Load Data
-    data=normalise_data(dp)
+    data=normalise_data(fname)
 
     u_data=data
 
@@ -154,8 +158,8 @@ def preds(dp):
         print(u_predicted.shape[0], u_data[S:].shape[0])
         print("Saving Generated data to files")
 
-    np.savetxt('Data/predicted_{d}_{c}.txt'.format(d=dp, c=G.CTR),u_predicted)
-    np.savetxt('Data/actual_{d}_{c}.txt'.format(d=dp, c=G.CTR),u_data[S:S+prediction_len])
+    np.savetxt('Data/molecular_dynamics/predicted_{c}.txt'.format(c=G.CTR),u_predicted)
+    np.savetxt('Data/molecular_dynamics/actual_{c}.txt'.format(c=G.CTR),u_data[S:S+prediction_len])
 
     if G.verbosity:
         print('Reached end of predictor.py\n')
