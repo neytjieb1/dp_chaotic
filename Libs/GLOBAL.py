@@ -11,10 +11,10 @@ ALPHA = 0.99
 A = 0.5
 
 #Training Setup
-TL= 15000                                                   #train_len= Number of datasteps used in training
+TL= 17000                                                   #train_len= Number of datasteps used in training
 PL= 1000                                                     #prediction_len= Timesteps predicted into the future after training
 DC=500                                                          #discard=Wait for the Network to forget
-DM=96                                                         #dim= dimension
+DM=256                                                         #dim= dimension
 
 #Trainer Input
 HIDDEN_LAYERS = 16
@@ -23,7 +23,7 @@ EPOCHS = 256#128#128#256
 BATCH_SIZE = 128#128
 
 #SDD, MDD, AMDD
-DELAY = 2 #30
+DELAY = 12 #30
 d = 1
 PCA = False
 numPCA = 100

@@ -6,17 +6,17 @@ G.CTR = input("Ctr value: \n")
 
 #Run Simulation
 file = 'Data/cor_vel_for_b1b88.txt'
-import Libs.predictor as predictor
-predictor.preds(file)
-import Libs.plotter as plotter
-plotter.plots()
+#import Libs.predictor as predictor
+#predictor.preds(file)
+#import Libs.plotter as plotter
+#plotter.plots()
 
 #Save Data
 print("Saving variable data to text file")
 
 f = open("Libs/GLOBAL.py","r")
 lines = f.readlines()
-lines.append("FILE = {d}".format(d=dp))
+lines.append("FILE = {d}".format(d=file))
 lines.append(input("Enter extra info:\n"))
 
 from numpy import savetxt

@@ -77,15 +77,14 @@ class Train_NN_PCA:
                                                     restore_best_weights = True)
                                                     
             self.history = self.model.fit(T_train,Y_train, batch_size=BATCH_SIZE,epochs=EPOCHS, 
-                    verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
-            # self.plotModelTraining()
+                    verbose=VERBOSE, validation_split=VALIDATION_SPLIT); self.plotModelTraining(rates.index(lr))
         
         # import pandas as pd
         # pd.DataFrame(self.history.history).plot(figsize=(8,5))
         # plt.show()
 
         
-    def plotModelTraining(self):
+    def plotModelTraining(self, rate):
         print(self.history.history.keys())
         #  "Accuracy"
         plt.plot(self.history.history['loss'])
@@ -93,8 +92,8 @@ class Train_NN_PCA:
         plt.title('model loss')
         plt.ylabel('loss')
         plt.xlabel('epoch')
-        plt.legend(['train', 'validation'], loc='upper left')
-        plt.show()
+        plt.legend(['train', 'validation'], loc='upper left');	plt.savefig('Figs/molecular_dynamics/history_{c}_{r}'.format(c=G.CTR, r=rate),dpi=600)
+        #plt.show()
     
 
     def predict(self,x):
