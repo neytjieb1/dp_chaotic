@@ -8,7 +8,6 @@ Successes/*
 !Successes/GoodResults/
 
 Libs/__pycache__/
-Figs/
 *.txt
 *.png
 *.tar.xz
