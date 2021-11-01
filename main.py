@@ -8,8 +8,8 @@ G.CTR = input("Ctr value: \n")
 file = 'Data/cor_vel_for_b1b88.txt'
 #import Libs.predictor as predictor
 #predictor.preds(file)
-#import Libs.plotter as plotter
-#plotter.plots()
+import Libs.plotter as plotter
+plotter.plots()
 
 #Save Data
 print("Saving variable data to text file")
