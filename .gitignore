@@ -15,7 +15,10 @@ Figs/
 
 !Data/
 Data/*
-!Data/*.txt
 !Data/dp_training_reworked/
+
+!Data/distances_b1b45b88.txt
+!Data/distances_b1b88.txt
+Data/coords320.txt
 
 #git push origin -u pca_dev
