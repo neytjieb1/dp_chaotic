@@ -15,8 +15,8 @@ title = 'RUN {ctr}, dim={dim}, density={dt}, d={d}, delay={D}'.format(ctr=G.CTR,
 
 
 def figF(axes, figure, u_actual, u_predicted, savingdata, rows, cols=1):
-     # plot_len1 = p1
-     for j in range(cols+rows-1):
+     plot_len1 = min(u_predicted.shape[0], u_actual.shape[0])
+     for j in range(cols*rows):
           col = ['cornflowerblue','forestgreen','indianred','orange' ]
           axes[j].plot(range(S,S+plot_len1),u_predicted[S:S+plot_len1,j],lw=0.75,color=col[2], label = j) 
           axes[j].plot(range(S,S+plot_len1),u_actual[S:S+plot_len1, j],lw=0.75,color=col[0], label= j)
@@ -82,9 +82,9 @@ def figA(u_data, u_predicted, savingdata):
 
 def figB(u_data, u_predicted, savingdata): 
      # plt.rcParams['figure.figsize'] = [15, 4]
-     spec = gridspec.GridSpec( nrows=4,ncols=1, hspace=1,height_ratios=[0.25,0.25, 0.25, 0.25])
-     _rows = 4
+     _rows = 2
      _cols = 1
+     spec = gridspec.GridSpec( nrows=_rows,ncols=_cols, hspace=1,height_ratios=[0.25 for i in range(_rows*_cols)])
      fig=plt.figure()
      axes = []
      for i in range(_cols):

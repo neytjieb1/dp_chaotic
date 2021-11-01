@@ -30,12 +30,12 @@ def plots(dp):
 
     ### SETUP 
     plt.rcParams['figure.figsize'] = [15, 4]
-
-    spec = gridspec.GridSpec( nrows=4,ncols=1,
-                            hspace=0.2,height_ratios=[0.75,0.75, 0.75, 0.75])
-
-    _rows = 4
+    _rows = 2
     _cols = 1
+    spec = gridspec.GridSpec( nrows=_rows,ncols=_cols,
+                            hspace=0.2,height_ratios=[0.75 for i in range(_rows*_cols)])
+
+
     fig=plt.figure()
     axes = []
     for i in range(_cols):

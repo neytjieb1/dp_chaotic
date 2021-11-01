@@ -11,6 +11,7 @@ def normalise_data(dp):
         print('Normalising Data...\n')  
     raw_data = np.loadtxt('/home/jo-anne/Documents/Honours/double-pendulum-chaotic/Data/dp_training_reworked/{d}.txt'.format(d=dp))
     raw_data = raw_data[:,2:]   #get rid of origin
+    raw_data = np.delete(raw_data, [0,2], axis=1)
 
     # raw_data = np.reshape(raw_data, (19000,1))  #if only distances
     
@@ -39,6 +40,24 @@ def normalise_data(dp):
     np.savetxt('quickcheck.txt', data)
     return data
 
+def createDelCoordData():
+    # temp = G.verbosity
+    G.verbosity = False                         #avoid vectorised output for 1D
+    raw_data = normalise_data('Data/d300_d1to88.txt')
+    # G.verbosity = temp
+    d = G.d
+
+    u = np.zeros((raw_data.shape[0]-d, d))
+    for i in range(raw_data.shape[0]-d):
+        temp = np.zeros(d)
+        for t in range(d):
+            # print(temp[t].shape, raw_data[t+1].shape)
+            temp[t] = raw_data[t+i]
+
+        # print(u[i].shape, "\t", temp.shape  )
+        u[i] = temp
+    
+    return u
 
 def preds(dp):
         
